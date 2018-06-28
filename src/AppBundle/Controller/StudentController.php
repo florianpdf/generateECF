@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Student;
+use AppBundle\Services\WritePdf;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -29,6 +30,15 @@ class StudentController extends Controller
         return $this->render('student/index.html.twig', array(
             'students' => $students,
         ));
+    }
+
+    /**
+     * @param Student $student
+     * @param WritePdf $writePdf
+     * @Route("/generate/{id}", name="generate_pdf")
+     */
+    public function generatePdf(Student $student, WritePdf $writePdf){
+        $writePdf->generatePdf($student);
     }
 
     /**

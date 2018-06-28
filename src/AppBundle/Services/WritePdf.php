@@ -2,50 +2,49 @@
 
 namespace AppBundle\Services;
 
-use Acme\DemoBundle\Lib\Entity\Pdf;
+use AppBundle\Entity\Student;
+use setasign\Fpdi\Fpdi;
 
-class AcmeController
+class WritePdf
 {
     private $template_directory;
 
-    public function __construct($template_directory){
+    public function __construct($template_directory)
+    {
         $this->template_directory = $template_directory;
     }
 
-   /**
-	 * Clasic bundle controller
-	 */
-    public function indexAction()
-    {
-        $this->generationPdf();
-        // Go on your page after generate the pdf !
-        return $this->render('AcmeDemoBundle:Folder:view.html.twig');
-    }
-    /**
-     * Main function that build and generate the pdf
-     */
-    public function generationPdf()
-	  {
+    public function generatePdf(Student $student){
         // initiate FPDI
-        $pdf = new Pdf();
-        // add a page
-        $pdf->AddPage();
-        // set the source file (if you have on, FPDI allow that, even, it create a A4 for you ! )
-        $pdf->setSourceFile($this->template_directory . 'php.pdf');
+        $pdf = new Fpdi();
+        // set the source file
+        $pdf->setSourceFile($this->template_directory . "php.pdf");
         // import page 1
         $tplIdx = $pdf->importPage(1);
-        // use the imported page and place it at point 0,0 with a width of 210 mm
-        $pdf->useTemplate($tplIdx, 0, 0, 210);
+        $size = $pdf->getTemplateSize($tplIdx);
+        $pdf->AddPage('P');
+
+        // use the imported page and place it at position 10,10 with a width of 100 mm
+        $pdf->useTemplate($tplIdx);
+
         // now write some text above the imported page
-        $pdf->SetFont('Helvetica', "", 8);
+        $pdf->SetFont('Helvetica', '', 9);
         $pdf->SetTextColor(0, 0, 0);
-        $pdf->checkboxDemandeDt();
-        $pdf->destinataireDenomination("Zone destinataire>denomination");
-        $pdf->destinataireComplement("Zone destinataire>complement");
-        $pdf->numeroTelephone('0476898557');
-        // Use the barecode
-        $pdf->barecodeTest('I Want To Be A fred Today');
-        // Pdf is generated here !
+
+
+        // Write Name
+        $pdf->SetXY(75.5, 194);
+        $pdf->Write(0, $student->getName());
+
+        // Write Firstnqme
+        $pdf->SetXY(75.5, 200);
+        $pdf->Write(0, $student->getFirstname());
+
+        // Write DateBirth
+        $pdf->SetXY(75.5, 206);
+        $pdf->Write(0, $student->getDateOfBirth()->format('d-m-Y'));
+
         $pdf->Output();
     }
+
 }

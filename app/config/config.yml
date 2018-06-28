@@ -7,7 +7,7 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
-    template_directory: %kernel.project_dir%/web/assets/ecfTemplate/'
+    template_directory: '%kernel.project_dir%/web/assets/ecfTemplate/'
 
 framework:
     #esi: ~
