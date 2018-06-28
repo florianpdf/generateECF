@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Students list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Firstname</th>
+                <th>Dateofbirth</th>
+                <th>Campus</th>
+                <th>Validateactivityone</th>
+                <th>Commactivityone</th>
+                <th>Validateevalsuppone</th>
+                <th>Commevalsuppone</th>
+                <th>Validateactivitytwo</th>
+                <th>Commactivitytwo</th>
+                <th>Validateevalsupptwo</th>
+                <th>Commevalsupptwo</th>
+                <th>Observationstudent</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for student in students %}
+            <tr>
+                <td><a href="{{ path('student_show', { 'id': student.id }) }}">{{ student.id }}</a></td>
+                <td>{{ student.name }}</td>
+                <td>{{ student.firstname }}</td>
+                <td>{% if student.dateOfBirth %}{{ student.dateOfBirth|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ student.campus }}</td>
+                <td>{% if student.validateActivityOne %}Yes{% else %}No{% endif %}</td>
+                <td>{{ student.commActivityOne }}</td>
+                <td>{% if student.validateEvalSuppOne %}Yes{% else %}No{% endif %}</td>
+                <td>{{ student.commEvalSuppOne }}</td>
+                <td>{% if student.validateActivityTwo %}Yes{% else %}No{% endif %}</td>
+                <td>{{ student.commActivityTwo }}</td>
+                <td>{% if student.validateEvalSuppTwo %}Yes{% else %}No{% endif %}</td>
+                <td>{{ student.commEvalSuppTwo }}</td>
+                <td>{{ student.observationStudent }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('student_show', { 'id': student.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('student_edit', { 'id': student.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('student_new') }}">Create a new student</a>
+        </li>
+    </ul>
+{% endblock %}
