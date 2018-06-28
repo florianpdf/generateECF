@@ -8,6 +8,8 @@ imports:
 parameters:
     locale: en
     template_directory: '%kernel.project_dir%/web/assets/ecfTemplate/'
+    ecf_output: '%kernel.project_dir%/web/ecfOutput/'
+    zip_directory: '%kernel.project_dir%/web/zipOutput/'
 
 framework:
     #esi: ~
@@ -36,6 +38,7 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    form_themes: ['bootstrap_4_layout.html.twig']
 
 # Doctrine Configuration
 doctrine:

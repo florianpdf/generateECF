@@ -34,10 +34,6 @@
                         </li>
                         <li>
                             <a href="{{ path('student_edit', { 'id': student.id }) }}">edit</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('generate_pdf', { 'id': student.id }) }}">Generate pdf</a>
-                        </li>
                     </ul>
                 </td>
                 <td>{{ student.name }}</td>
@@ -62,6 +58,9 @@
     <ul>
         <li>
             <a href="{{ path('student_new') }}">Create a new student</a>
+        </li>
+        <li>
+            <a href="{{ path('generate_ecf') }}">zip</a>
         </li>
     </ul>
 {% endblock %}
