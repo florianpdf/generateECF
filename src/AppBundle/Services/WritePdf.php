@@ -27,10 +27,23 @@ class WritePdf
         // use the imported page and place it at position 10,10 with a width of 100 mm
         $pdf->useTemplate($tplIdx);
 
+        // Write Gender
+        if ($student->getGender() == Student::FEMALE){
+            $pdf->SetXY(90, 188.8);
+        } elseif ($student->getGender() == Student::MALE){
+            $pdf->SetXY(110, 188.8);
+        }
+        $check = "4";
+        $pdf->SetFont('ZapfDingbats','', 10);
+        $pdf->Cell(0, 0, $check, 0, 0);
+
         // now write some text above the imported page
         $pdf->SetFont('Helvetica', '', 9);
         $pdf->SetTextColor(0, 0, 0);
 
+        // Write Campus
+        $pdf->SetXY(75.5, 176);
+        $pdf->Write(0, $student->getCampus());
 
         // Write Name
         $pdf->SetXY(75.5, 194);
@@ -43,6 +56,8 @@ class WritePdf
         // Write DateBirth
         $pdf->SetXY(75.5, 206);
         $pdf->Write(0, $student->getDateOfBirth()->format('d-m-Y'));
+
+
 
         $pdf->Output();
     }

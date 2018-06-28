@@ -12,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Student
 {
+    const MALE = 1;
+    const FEMALE = 2;
+
     /**
      * @var int
      *
@@ -34,6 +37,12 @@ class Student
      * @ORM\Column(name="firstname", type="string", length=255)
      */
     private $firstname;
+
+    /**
+     * @var string
+     * @ORM\Column(name="gender", type="string", length=255)
+     */
+    private $gender;
 
     /**
      * @var \DateTime
@@ -169,6 +178,22 @@ class Student
     public function getFirstname()
     {
         return $this->firstname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGender()
+    {
+        return $this->gender;
+    }
+
+    /**
+     * @param string $gender
+     */
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
     }
 
     /**
