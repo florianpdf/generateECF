@@ -1,0 +1,11 @@
+<ul>
+    {% for promo in promos %}
+        <li>
+            {{ promo.name }}
+        </li>
+        <li>
+            {{ promo.langage }}
+        </li>
+        <li><a href="{{ path('student_index', { 'promo': promo.id }) }}">Vois la promo</a></li>
+    {% endfor %}
+</ul>

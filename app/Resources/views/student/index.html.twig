@@ -2,6 +2,12 @@
 
 {% block body %}
     <h1>Students list</h1>
+    <ul>
+        <li>
+            <a href="{{ path('generate_ecf', { 'promo': promo.id }) }}">Telecharger le zip d'ecf</a>
+        </li>
+    </ul>
+
 
     <table>
         <thead>
@@ -11,7 +17,7 @@
                 <th>Name</th>
                 <th>Firstname</th>
                 <th>Dateofbirth</th>
-                <th>Campus</th>
+                <th>Promo </th>
                 <th>Validateactivityone</th>
                 <th>Commactivityone</th>
                 <th>Validateevalsuppone</th>
@@ -26,20 +32,17 @@
         <tbody>
         {% for student in students %}
             <tr>
-                <td><a href="{{ path('student_show', { 'id': student.id }) }}">{{ student.id }}</a></td>
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('student_show', { 'id': student.id }) }}">show</a>
+                            <a href="{{ path('student_edit', { 'promo': promo.id, 'id': student.id }) }}">edit</a>
                         </li>
-                        <li>
-                            <a href="{{ path('student_edit', { 'id': student.id }) }}">edit</a>
                     </ul>
                 </td>
                 <td>{{ student.name }}</td>
                 <td>{{ student.firstname }}</td>
                 <td>{% if student.dateOfBirth %}{{ student.dateOfBirth|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ student.campus }}</td>
+                <td>{{ student.promo.name }}</td>
                 <td>{% if student.validateActivityOne %}Yes{% else %}No{% endif %}</td>
                 <td>{{ student.commActivityOne }}</td>
                 <td>{% if student.validateEvalSuppOne %}Yes{% else %}No{% endif %}</td>
@@ -54,13 +57,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('student_new') }}">Create a new student</a>
-        </li>
-        <li>
-            <a href="{{ path('generate_ecf') }}">zip</a>
-        </li>
-    </ul>
 {% endblock %}

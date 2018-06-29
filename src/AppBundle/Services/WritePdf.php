@@ -50,17 +50,17 @@ class WritePdf
         $pdf->SetFont('Helvetica','', 10);
 
         // Generate page 1
-        $this->setCampus($pdf, $student->getCampus());
+        $this->setCampus($pdf, $student->getPromo()->getCity()->getName());
         $this->setName($pdf, $student->getName());
         $this->setFirstname($pdf, $student->getFirstname());
         $this->setDateBirth($pdf, $student->getDateOfBirth());
         $this->setGender($pdf, $student->getGender());
 
         $filename = $student->getName() . '_' . $student->getFirstname() . '_ecf.pdf';
-        if (!file_exists($this->output . $student->getCampus())) {
-            mkdir($this->output . $student->getCampus(), 0777, true);
+        if (!file_exists($this->output . str_replace(' ', '_', $student->getPromo()->getName()))) {
+            mkdir($this->output . str_replace(' ', '_', $student->getPromo()->getName()), 0777, true);
         }
-        $pdf->Output('F', $this->output . $student->getCampus() . '/' . $filename);
+        $pdf->Output('F', $this->output . str_replace(' ', '_', $student->getPromo()->getName()) . '/' . $filename);
     }
 
     /**

@@ -8,6 +8,8 @@
 
 namespace AppBundle\Services;
 
+use AppBundle\Entity\Promo;
+
 class Zip
 {
     private $ecfDirectory;
@@ -19,24 +21,24 @@ class Zip
         $this->zipDirectory = $zipDirectory;
     }
 
-    public function zipFolder(){
+    public function zipFolder(Promo $promo){
         $zip = new \ZipArchive();
+        $outputFileName = str_replace(' ', '_', $promo->getName()) . '_ECF.zip';
 
-        //TODO: add real campus
+
         if (!file_exists($this->zipDirectory)) {
             mkdir($this->zipDirectory, 0777, true);
         }
-        $zip->open($this->zipDirectory . 'paris_ecf.zip', \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+        $zip->open($this->zipDirectory . $outputFileName, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
 
-// Initialize empty "delete list"
+        // Initialize empty "delete list"
         $filesToDelete = array();
 
-// Create recursive directory iterator
+        // Create recursive directory iterator
         /** @var SplFileInfo[] $files */
         $files = new \RecursiveIteratorIterator(
 
-            //TODO: Add real campus
-            new \RecursiveDirectoryIterator($this->ecfDirectory . 'Paris'),
+            new \RecursiveDirectoryIterator($this->ecfDirectory . str_replace(' ', '_', $promo->getName())),
             \RecursiveIteratorIterator::LEAVES_ONLY
         );
 
@@ -63,8 +65,8 @@ class Zip
         {
             unlink($file);
         }
+        rmdir($this->ecfDirectory . str_replace(' ', '_', $promo->getName()));
 
-        //TODO: Add real campus
-        return ['filename' => 'paris_ecf.zip', 'path_to_zip' => $this->zipDirectory . 'paris_ecf.zip'];
+        return ['filename' => $outputFileName, 'path_to_zip' => $this->zipDirectory . $outputFileName];
     }
 }
