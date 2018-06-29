@@ -121,7 +121,41 @@ class Student
      */
     private $observationStudent;
 
+    /**
+     * @param string $name
+     */
+    public function setName($name) {
+        $this->name = $name;
+    }
 
+    /**
+     * @param string $firstname
+     */
+    public function setFirstname($firstname) {
+        $this->firstname = $firstname;
+    }
+
+    /**
+     * @param string $gender
+     */
+    public function setGender($gender) {
+        $this->gender = $gender;
+    }
+
+    /**
+     * @param \DateTime $dateOfBirth
+     */
+    public function setDateOfBirth($dateOfBirth) {
+        $this->dateOfBirth = $dateOfBirth;
+    }
+
+    /**
+     * @param string $promo
+     */
+    public function setPromo($promo) {
+        $this->promo = $promo;
+    }
+    
     /**
      * Get id
      *
