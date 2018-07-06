@@ -1,17 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Generateur ECF</h1>
+    <h1 class="title">Choisi ta ville</h1>
 
-    <h2>Choisi ta promo</h2>
-
-    <ul>
+    <div class="btn-group btn-group-justified" role="group">
         {% for city in cities %}
-            <li>
-                <button class="cityButton" data-linkrequest="{{ path('homepage') }}" data-cityid="{{ city.id }}">{{ city.name }}</button>
-            </li>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default cityButton" data-linkrequest="{{ path('homepage') }}" data-cityid="{{ city.id }}">{{ city.name }}</button>
+            </div>
         {% endfor %}
-    </ul>
+    </div>
 
     <div id="boxPromo">
 

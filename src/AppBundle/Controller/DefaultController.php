@@ -29,7 +29,7 @@ class DefaultController extends Controller
             $cityId = $request->get('cityId');
             $promos = $em->getRepository(Promo::class)->getPromoByCity($cityId);
 
-            $promoTemplate = $this->renderView('default/includes/boxPromoResult.twig', array(
+            $promoTemplate = $this->renderView('default/includes/boxPromoResult.html.twig', array(
                 'promos' => $promos
             ));
 
@@ -61,7 +61,6 @@ class DefaultController extends Controller
         foreach ($students as $student){
             $writePdf->generatePdf($student);
         }
-        $writePdf->generatePdf($student);
 
         $zipInfos = $zip->zipFolder($promo);
 

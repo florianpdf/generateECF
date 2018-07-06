@@ -1,60 +1,57 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Students list</h1>
-    <ul>
-        <li>
-            <a href="{{ path('generate_ecf', { 'promo': promo.id }) }}">Telecharger le zip d'ecf</a>
-        </li>
-    </ul>
+    <div class="row">
+        <h1 class="title">Liste des eleves de la promo {{ promo.langage }} pour la ville de {{ promo.city }}</h1>
+        <a class="btn btn-primary btn-lg btn-block" href="{{ path('generate_ecf', { 'promo': promo.id }) }}" role="button">Telecharger le zip d'ecf</a>
+    </div>
 
-
-    <table>
-        <thead>
+    <div class="row">
+        <table class="table table-bordered table-hove table-responsive  r">
+            <thead>
             <tr>
-                <th>Id</th>
                 <th>Actions</th>
                 <th>Name</th>
                 <th>Firstname</th>
                 <th>Dateofbirth</th>
-                <th>Promo </th>
-                <th>Validateactivityone</th>
-                <th>Commactivityone</th>
-                <th>Validateevalsuppone</th>
-                <th>Commevalsuppone</th>
-                <th>Validateactivitytwo</th>
-                <th>Commactivitytwo</th>
-                <th>Validateevalsupptwo</th>
-                <th>Commevalsupptwo</th>
-                <th>Observationstudent</th>
+                <th>Activity one</th>
+                <th>Eval supp one</th>
+                <th>Activity two</th>
+                <th>Eval supp two</th>
+                <th>Observation student</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for student in students %}
-            <tr>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('student_edit', { 'promo': promo.id, 'id': student.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-                <td>{{ student.name }}</td>
-                <td>{{ student.firstname }}</td>
-                <td>{% if student.dateOfBirth %}{{ student.dateOfBirth|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ student.promo.name }}</td>
-                <td>{% if student.validateActivityOne %}Yes{% else %}No{% endif %}</td>
-                <td>{{ student.commActivityOne }}</td>
-                <td>{% if student.validateEvalSuppOne %}Yes{% else %}No{% endif %}</td>
-                <td>{{ student.commEvalSuppOne }}</td>
-                <td>{% if student.validateActivityTwo %}Yes{% else %}No{% endif %}</td>
-                <td>{{ student.commActivityTwo }}</td>
-                <td>{% if student.validateEvalSuppTwo %}Yes{% else %}No{% endif %}</td>
-                <td>{{ student.commEvalSuppTwo }}</td>
-                <td>{{ student.observationStudent }}</td>
+            </thead>
+            <tbody>
+            {% for student in students %}
+                <tr>
+                    <td>
+                        <a class="btn btn-default" href="{{ path('student_edit', { 'promo': promo.id, 'id': student.id }) }}" role="button">Edit</a>
+                    </td>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.firstname }}</td>
+                    <td>{% if student.dateOfBirth %}{{ student.dateOfBirth|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td>
+                        <p>{% if student.validateActivityOne %}Yes{% else %}No{% endif %}</p>
+                        <p>{{ student.commActivityOne|slice(1, 50) ~ '...' }}</p>
+                    </td>
+                    <td>
+                        <p>{% if student.validateEvalSuppOne %}Yes{% else %}No{% endif %}</p>
+                        <p>{{ student.commEvalSuppOne|slice(1, 50) ~ '...' }}</p>
+                    </td>
+                    <td>
+                        <p>{% if student.validateActivityTwo %}Yes{% else %}No{% endif %}</p>
+                        <p>{{ student.commActivityTwo|slice(1, 50) ~ '...' }}</p>
+                    </td>
+                    <td>
+                        <p>{% if student.validateEvalSuppTwo %}Yes{% else %}No{% endif %}</p>
+                        <p>{{ student.commEvalSuppTwo|slice(1, 50) ~ '...' }}</p>
+                    </td>
+                    <td>{{ student.observationStudent|slice(1, 50) ~ '...' }}</td>
 
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
 {% endblock %}

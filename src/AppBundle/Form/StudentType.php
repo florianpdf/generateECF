@@ -26,6 +26,7 @@ class StudentType extends AbstractType
             ->add('commActivityTwo')
             ->add('validateEvalSuppTwo')
             ->add('commEvalSuppTwo')
+            ->add('observationStudent')
         ;
     }/**
      * {@inheritdoc}
