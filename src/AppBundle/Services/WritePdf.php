@@ -83,9 +83,11 @@ class WritePdf
         if (!file_exists($this->output . str_replace(' ', '_', $student->getPromo()->getName()))) {
             mkdir($this->output . str_replace(' ', '_', $student->getPromo()->getName()), 0777, true);
         }
-        $pdf->Output();
 
-//        $pdf->Output('F', $this->output . str_replace(' ', '_', $student->getPromo()->getName()) . '/' . $filename);
+//        TODO: For test
+//        $pdf->Output();
+
+        $pdf->Output('F', $this->output . str_replace(' ', '_', $student->getPromo()->getName()) . '/' . $filename);
     }
 
     /**
